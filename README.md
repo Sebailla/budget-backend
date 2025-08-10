@@ -11,9 +11,19 @@ MVC (Model View Controler)
 4. Typescript
 5. ORM: Sequelize 6
 6. BD: PostgreSQL 16
+7. bcryptjs
+8. nodemailer
+9. JWT
 
-## Comandos
+#
+> [!IMPORTANT]
+> 1. Clonar repositorio.
+> 2. Renombrar `env.template` a `.env` y agregar sus variables de entorno.
+> 3. Ejecutar: ```npm install```
+> 4. Correr el servidor : ```npm run dev:api```
 
-1. Conar repositorio
-2. Ejecutar: ```npm install```
-3. Correr el servidor : ```npm run dev:api```
+#
+
+> [!NOTE]
+> Autor: Sebastián Illa
+> 2025
