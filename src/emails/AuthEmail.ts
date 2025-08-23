@@ -15,7 +15,7 @@ export class AuthEmail{
             html: `
                 <p>Hola: <b>${user.name}</b>, has creado tu cuenta en Budget</p>
                 <p>Visita el siguiente enlace:</p>
-                <a href='#'>Confirmar Cuenta</a>
+                <a href="${process.env.FRONTEND_URL}/auth/confirm-account">Confirmar Cuenta</a>
                 <p>Tu Codigo de Confirmacion es: <b>${user.token}</b></p>
             `
         })
@@ -31,7 +31,7 @@ export class AuthEmail{
             html: `
                 <p>Hola: <b>${user.name}</b>, has solicitado restablecer tu Password de tu cuenta en Budget</p>
                 <p>Visita el siguiente enlace:</p>
-                <a href='#'>Restablecer Password</a>
+                <a href="${process.env.FRONTEND_URL}/auth/reset-password">Restablecer Password</a>
                 <p>Tu Codigo de Confirmacion es: <b>${user.token}</b></p>
             `
         })
