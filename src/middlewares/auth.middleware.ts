@@ -12,31 +12,34 @@ declare global {
 }
 
 export const authenticateUser = async (req: Request, res: Response, next: NextFunction) => {
-
     const bearer = req.headers.authorization
     if (!bearer) {
-        const error = new Error('Unauthorized User')
-        return res.status(401).json({ status: "error", message: error.message })
+        return res.status(401).json({ status: "error", message: 'Unauthorized User' });
     }
 
-    const token = bearer.split(' ')[1]
-
+    const token = bearer.split(' ')[1];
     if (!token) {
-        const error = new Error('Invalid Token')
-        return res.status(401).json({ status: "error", message: error.message })
+        return res.status(401).json({ status: "error", message: 'Invalid Token' });
     }
 
     try {
-        const decoder = verifyJWT(token)
+        const decoder = verifyJWT(token);
         if (typeof decoder === 'object' && decoder.id) {
             req.user = await User.findByPk(decoder.id, {
                 attributes: ['id', 'name', 'email']
-            })
-            next()
+            });
+
+            if (!req.user) {
+                return res.status(401).json({ status: "error", message: 'User not found' });
+            }
+
+            next();
+        } else {
+            return res.status(401).json({ status: "error", message: 'Invalid Token' });
         }
 
     } catch (error) {
-        res.status(500).json({ status: "error", message: 'Invalid Token' })
+        return res.status(401).json({ status: "error", message: 'Token expired or invalid' });
     }
 }
 

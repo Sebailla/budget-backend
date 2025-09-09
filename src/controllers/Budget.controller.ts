@@ -11,7 +11,8 @@ export class BudgetController {
                 //limit: 5,
                 where: {
                     userId: req.user.id
-                }
+                },
+                include: [Expense]
             })
 
             res.json({ status: "success", data: budgets })
