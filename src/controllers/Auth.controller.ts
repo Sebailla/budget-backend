@@ -199,23 +199,23 @@ export class AuthController {
 
         try {
 
-            const user = await User.findOne(id)
+            const user = await User.findByPk(id)
 
             const password = await comparePassword(current_password, user.password)
 
             if (!password) {
                 const error = new Error('Invalid Current Password')
-                return res.status(401).json({ status: "error", message: error.message })
+                return res.status(401).json({ error: error.message })
             }
 
             user.password = await hashPassword(new_password)
             await user.save()
 
-            res.json({ status: "success", message: 'Password updated successfully' })
+            res.json({ message: 'Password updated successfully' })
 
 
         } catch (error) {
-            res.status(500).json({ status: "error", message: 'Something went wrong' })
+            res.status(500).json({ error: 'Something went wrong' })
         }
     }
 
