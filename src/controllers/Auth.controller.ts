@@ -242,5 +242,27 @@ export class AuthController {
         }
     }
 
+    static updateUser = async (req: Request, res: Response) => {
+        
+        const { name, email } = req.body
+        const { id } = req.user
+
+        try {
+            const user = await User.findOne({ where: { email } })
+            
+            if(user && user.id !== id) {
+                const error = new Error('Email already in use')
+                return res.status(409).json({ error: error.message })
+            }
+
+            await User.update({ name, email }, { where: { id } })
+
+            res.json({ message: 'Profile updated successfully' })
+
+        } catch (error) {
+            res.status(500).json({ error: 'Something went wrong' })
+        }
+    }
+
 }
 
